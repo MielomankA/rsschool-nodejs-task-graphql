@@ -4,7 +4,7 @@ import { Post } from './types/post.js';
 import { Profile } from './types/profile.js';
 import { User } from './types/user.js';
 import { GQLContext } from './types/gql-context.js';
-import { MemberTypeIdEnum } from './types/member-type.js';
+import { MemberTypeIdEnum } from './types/member-type-id-enum.js';
 import { UUIDType } from './types/uuid.js';
 
 export const RootQueryType = new GraphQLObjectType({
