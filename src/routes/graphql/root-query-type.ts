@@ -27,14 +27,31 @@ export const RootQueryType = new GraphQLObjectType({
     users: {
       type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(User))),
       resolve: async (_, __, ctx: GQLContext) => {
-        return ctx.prisma.user.findMany();
+        return ctx.prisma.user.findMany({
+          include: {
+            profile: {
+              include: { memberType: true },
+            },
+            posts: true,
+          },
+        });
       },
     },
     user: {
       type: User,
       args: { id: { type: UUIDType } },
       resolve: async (_, { id }: { id: string }, ctx: GQLContext) => {
-        return ctx.prisma.user.findUnique({ where: { id } });
+        return ctx.prisma.user.findUnique({
+          where: { id },
+          include: {
+            profile: {
+              include: {
+                memberType: true,
+              },
+            },
+            posts: true,
+          },
+        });
       },
     },
     posts: {
