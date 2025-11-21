@@ -2,15 +2,7 @@ import { GraphQLBoolean, GraphQLInt, GraphQLNonNull, GraphQLObjectType } from 'g
 import { MemberType } from './member-type.js';
 import { UUIDType } from '../types/uuid.js';
 import { GQLContext } from '../types/gql-context.js';
-
-type MemberTypeId = 'BASIC' | 'BUSINESS';
-
-type ProfileModel = {
-  id: string;
-  isMale: boolean;
-  yearOfBirth: number;
-  memberTypeId: MemberTypeId;
-};
+import { ProfileModel } from './models.js';
 
 export const Profile = new GraphQLObjectType({
   name: 'Profile',

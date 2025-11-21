@@ -10,22 +10,7 @@ import { Profile } from './profile.js';
 import { UUIDType } from '../types/uuid.js';
 import { GQLContext } from '../types/gql-context.js';
 import { GraphQLFieldConfigMap } from 'graphql';
-
-type PostModel = {
-  id: string;
-  title: string;
-  content: string;
-};
-
-type UserModel = {
-  id: string;
-  name: string;
-  balance: number;
-  profileId?: string;
-  posts: PostModel[];
-  userSubscribedToIds: string[];
-  subscribedToUserIds: string[];
-};
+import { UserModel } from './models.js';
 
 export const User = new GraphQLObjectType<UserModel, GQLContext>({
   name: 'User',
