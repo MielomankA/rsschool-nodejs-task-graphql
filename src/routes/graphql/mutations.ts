@@ -111,13 +111,13 @@ export const Mutations = new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLString),
       args: { id: { type: UUIDType } },
       resolve: async (_, { id }: { id: string }, ctx: GQLContext) => {
-        await ctx.prisma.post.delete({
+        const deleted = await ctx.prisma.post.delete({
           where: {
             id,
           },
         });
 
-        return null;
+        return deleted.id;
       },
     },
     deleteProfile: {
