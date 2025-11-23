@@ -9,25 +9,15 @@ import { CreateUserInput } from './inputs/create-user-input.js';
 import { CreateProfileInput } from './inputs/create-profile-input.js';
 import { CreatePostInput } from './inputs/create-post-input.js';
 import { GQLContext } from './types/gql-context.js';
-import { ProfileModel, UserModel } from './types/models.js';
+import { PostModel, ProfileModel, UserModel } from './types/models.js';
 import { UUIDType } from './types/uuid.js';
 
 type CreateUserInputDto = Pick<UserModel, 'name' | 'balance'>;
 type CreateProfileInputDto = Omit<ProfileModel, 'id'> & { userId: string };
-type CreatePostInputDto = {
-  title: string;
-  content: string;
-  authorId: string;
-};
-type ChangePostInputDto = Omit<CreatePostInputDto, 'authorId'>;
+type PostInputModelDto = Omit<PostModel, 'id'> & { authorId: string };
+type ChangePostInputDto = Omit<PostInputModelDto, 'authorId'>;
 type ChangeProfileInputDto = Omit<CreateProfileInputDto, 'userId'>;
 type ChangeUserInputDto = Pick<UserModel, 'name' | 'balance'>;
-
-export type CreateUpdatePostInputModel = {
-  title: string;
-  content: string;
-  authorId: string;
-};
 
 export const Mutations = new GraphQLObjectType({
   name: 'Mutations',
@@ -49,7 +39,7 @@ export const Mutations = new GraphQLObjectType({
     createPost: {
       type: new GraphQLNonNull(Post),
       args: { dto: { type: new GraphQLNonNull(CreatePostInput) } },
-      resolve: (_, { dto }: { dto: CreateUpdatePostInputModel }, ctx: GQLContext) => {
+      resolve: (_, { dto }: { dto: PostInputModelDto }, ctx: GQLContext) => {
         return ctx.prisma.post.create({ data: dto });
       },
     },
