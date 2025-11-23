@@ -19,9 +19,6 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
     },
     async handler(req) {
       const { query, variables } = req.body;
-
-      console.log('req.body:', req.body);
-
       const document = parse(query);
       const validationErrorsArray = validate(schema, document, [depthLimit(5)]);
 
@@ -37,8 +34,6 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
         variableValues: variables,
         contextValue: createContext(prisma),
       });
-
-      console.log(JSON.stringify(result, null, 2));
 
       return result;
     },
