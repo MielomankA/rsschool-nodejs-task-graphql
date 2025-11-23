@@ -13,7 +13,7 @@ export const Profile = new GraphQLObjectType({
     memberType: {
       type: new GraphQLNonNull(MemberType),
       resolve: (profile: ProfileModel, _, ctx: GQLContext) => {
-        return ctx.prisma.memberType.findUnique({ where: { id: profile.memberTypeId } });
+        return ctx.loaders.memberTypeLoader.load(profile.memberTypeId);
       },
     },
   }),

@@ -20,7 +20,6 @@ export const RootQueryType = new GraphQLObjectType({
       type: MemberType,
       args: { id: { type: MemberTypeIdEnum } },
       resolve: async (_, { id }: { id: 'BASIC' | 'BUSINESS' }, ctx: GQLContext) => {
-        console.log('Resolver received id:', id);
         return ctx.prisma.memberType.findUnique({ where: { id } });
       },
     },

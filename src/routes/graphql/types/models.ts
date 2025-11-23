@@ -14,7 +14,7 @@ export type UserModel = {
   subscribedToUserIds: string[];
 };
 
-type MemberTypeId = 'BASIC' | 'BUSINESS';
+export type MemberTypeId = 'BASIC' | 'BUSINESS';
 
 export type ProfileModel = {
   id: string;
