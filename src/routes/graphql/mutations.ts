@@ -102,9 +102,9 @@ export const Mutations = new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLString),
       args: { id: { type: UUIDType } },
       resolve: async (_, { id }: { id: string }, ctx: GQLContext) => {
-        await ctx.prisma.user.delete({ where: { id } });
+        const deleted = await ctx.prisma.user.delete({ where: { id } });
 
-        return null;
+        return deleted.id;
       },
     },
     deletePost: {
@@ -124,9 +124,9 @@ export const Mutations = new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLString),
       args: { id: { type: UUIDType } },
       resolve: async (_, { id }: { id: string }, ctx: GQLContext) => {
-        await ctx.prisma.profile.delete({ where: { id } });
+        const deleted = await ctx.prisma.profile.delete({ where: { id } });
 
-        return null;
+        return deleted.id;
       },
     },
     subscribeTo: {
