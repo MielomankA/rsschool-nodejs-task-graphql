@@ -131,24 +131,23 @@ export const Mutations = new GraphQLObjectType({
     },
     subscribeTo: {
       type: new GraphQLNonNull(GraphQLString),
-      args: { userId: { type: UUIDType }, authorId: { type: UUIDType } },
-      resolve: (
+      args: {
+        userId: { type: new GraphQLNonNull(UUIDType) },
+        authorId: { type: new GraphQLNonNull(UUIDType) },
+      },
+      resolve: async (
         _,
         { userId, authorId }: { userId: string; authorId: string },
         ctx: GQLContext,
       ) => {
-        return ctx.prisma.user.update({
-          where: {
-            id: userId,
-          },
+        await ctx.prisma.subscribersOnAuthors.create({
           data: {
-            userSubscribedTo: {
-              create: {
-                authorId,
-              },
-            },
+            subscriberId: userId,
+            authorId: authorId,
           },
         });
+
+        return authorId;
       },
     },
     unsubscribeFrom: {
